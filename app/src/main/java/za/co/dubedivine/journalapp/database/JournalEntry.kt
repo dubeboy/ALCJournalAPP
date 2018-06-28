@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey
 import java.util.Date
 
 @Entity(tableName = "journal")
-data class JournalEntry constructor(@PrimaryKey(autoGenerate = true) var id: Int,
+data class JournalEntry constructor(@PrimaryKey(autoGenerate = true) var id: Int?,
                                     var title: String,
                                     var body: String,
                                     var modifiedAt: Date,

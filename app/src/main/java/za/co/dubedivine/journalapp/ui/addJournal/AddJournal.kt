@@ -12,6 +12,7 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.add_journal_activity.*
 import za.co.dubedivine.journalapp.R
 import za.co.dubedivine.journalapp.database.JournalEntry
+import za.co.dubedivine.journalapp.ui.viewJournal.ViewJournalFragment
 import java.util.*
 
 class AddJournal : AppCompatActivity() {
@@ -21,8 +22,9 @@ class AddJournal : AppCompatActivity() {
         const val TAG = "AddJournal"
 
         @JvmStatic
-        fun getStartIntent(context: Context): Intent {
+        fun getStartIntent(context: Context, id: Int = -1): Intent {
             val intent = Intent(context, AddJournal::class.java)
+            intent.putExtra(ViewJournalFragment.EXTRA_JOURNAL_ID, id) // these constants  refres to the same thing so y not share code ???
             return intent
         }
 
@@ -34,6 +36,13 @@ class AddJournal : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_journal_activity)
         viewModel = ViewModelProviders.of(this).get(AddJournalViewModel::class.java)
+        viewModel.id = intent.getIntExtra(ViewJournalFragment.EXTRA_JOURNAL_ID, -1)
+
+        if (viewModel.isInEditMode()) {
+            val (id, title, body, modifiedAt, createdAt) = viewModel.getJournalToEdit()!!
+            et_journal_body.setText(body)
+            et_journal_title.setText(title)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -45,11 +54,11 @@ class AddJournal : AppCompatActivity() {
         when (item?.itemId) {
             R.id.menu_item_done -> {
                 // save and then finish
-                viewModel.insertJournal(createJournalEntityToSave())
+                viewModel.saveJournal(createJournalEntityToSave())
                 finish()
             }
         }
-       return true
+        return true
     }
 
     //todo need to save when the activity is paused
@@ -58,11 +67,15 @@ class AddJournal : AppCompatActivity() {
         val body = et_journal_body.text.toString()
         val title = et_journal_title.text.toString()
         val createdAtDate = Date()
-        return JournalEntry(title, body,createdAtDate, createdAtDate)
+        return if (viewModel.isInEditMode()) {
+            JournalEntry(viewModel.id, title, body, createdAtDate, createdAtDate)
+        } else {
+            JournalEntry(title, body, createdAtDate, createdAtDate)
+        }
     }
 
     override fun onBackPressed() {
-        viewModel.insertJournal(createJournalEntityToSave())
+        viewModel.saveJournal(createJournalEntityToSave())
         super.onBackPressed()
     }
 }
