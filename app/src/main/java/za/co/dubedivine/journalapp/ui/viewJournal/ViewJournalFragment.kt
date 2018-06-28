@@ -6,13 +6,24 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.journal_layout.*
+import kotlinx.android.synthetic.main.view_journal_fragment.*
 import za.co.dubedivine.journalapp.R
-import za.co.dubedivine.journalapp.ui.R
+import za.co.dubedivine.journalapp.util.getSimpleDateFormatter
 
 class ViewJournalFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ViewJournalFragment()
+
+        const val EXTRA_JOURNAL_ID = "extra_journal_id"
+
+        fun newInstance(id: Int): ViewJournalFragment {
+            val viewJournalFragment = ViewJournalFragment()
+            val bundle = Bundle()
+            bundle.putInt(EXTRA_JOURNAL_ID, id)
+            viewJournalFragment.arguments = bundle
+            return viewJournalFragment
+        }
     }
 
     private lateinit var viewModel: ViewJournalViewModel
@@ -28,8 +39,15 @@ class ViewJournalFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        // todo should observe this data!!
         viewModel = ViewModelProviders.of(this).get(ViewJournalViewModel::class.java)
-        // TODO: Use the ViewModel
+        val journalId = arguments?.getInt(EXTRA_JOURNAL_ID)
+        val (_, title, body, modifiedAt, createdAt) = viewModel.getJournalById(journalId!!)
+        tv_journal_title.text = title
+        tv_journal_body.text = body
+        tv_modified_on.text = getSimpleDateFormatter().format(modifiedAt)
+        tv_created_at.text = getSimpleDateFormatter().format(createdAt)
     }
 
 }

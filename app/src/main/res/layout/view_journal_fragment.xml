@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_journal_title"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -21,7 +21,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -29,8 +28,8 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_modified_at"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/tv_journal_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_journal_title"
         app:layout_constraintVertical_bias="0.0">
 
 
@@ -38,17 +37,18 @@
             android:id="@+id/tv_journal_body"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
     </ScrollView>
 
     <TextView
         android:id="@+id/tv_created_at"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintBottom_toTopOf="@+id/tv_modified_at"
         app:layout_constraintEnd_toStartOf="@+id/tv_modified_at"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,10 +56,22 @@
 
     <TextView
         android:id="@+id/tv_modified_at"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="96dp"
+        android:layout_width="175dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="8dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit_journal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_edit" />
 </android.support.constraint.ConstraintLayout>
