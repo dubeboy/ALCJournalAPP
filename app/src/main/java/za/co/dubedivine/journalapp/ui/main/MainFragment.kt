@@ -26,7 +26,7 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.getAllJournals().observe(this, Observer {
-
+            
         })
     }
 
