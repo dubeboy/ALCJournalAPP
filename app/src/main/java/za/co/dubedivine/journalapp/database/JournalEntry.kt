@@ -15,7 +15,4 @@ data class JournalEntry constructor(@PrimaryKey(autoGenerate = true) var id: Int
     constructor(title: String,
                 body: String,
                 createdAt: Date) :  this(0, title, body, createdAt)
-
-
-
 }

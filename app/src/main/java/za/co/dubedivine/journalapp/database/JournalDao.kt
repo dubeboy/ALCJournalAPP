@@ -18,7 +18,7 @@ interface JournalDao {
     @Query("SELECT * FROM journal ORDER BY createdAt ASC")
     fun loadAllTasks(): LiveData<List<JournalEntry>>
 
-    @Query("SELECT 1 FROM journal WHERE id == :id")
+    @Query("SELECT * FROM journal WHERE id = :id")
     fun findJournalEntry(id: Int): JournalEntry  // find item by ID
 
     @Insert
