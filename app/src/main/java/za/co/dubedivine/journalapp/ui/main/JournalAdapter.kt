@@ -1,5 +1,6 @@
 package za.co.dubedivine.journalapp.ui.main
 
+import android.provider.Settings.System.DATE_FORMAT
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -7,15 +8,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import za.co.dubedivine.journalapp.R
 import za.co.dubedivine.journalapp.database.JournalEntry
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class JournalAdapter : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() {
 
     private var _journals: ArrayList<JournalEntry> = ArrayList()
-    private var journals: ArrayList<JournalEntry>
+    var journals: ArrayList<JournalEntry>
         get() = _journals
         set(value) {
             _journals = value
+            notifyDataSetChanged()
         }
 
 
@@ -26,6 +30,7 @@ class JournalAdapter : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() 
 
     override fun getItemCount(): Int = journals.size
 
+    // default 16 items
     override fun onBindViewHolder(holder: JournalViewHolder?, position: Int) {
         holder?.bind(journals[position])
     }
@@ -35,14 +40,15 @@ class JournalAdapter : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() 
     }
 
     class JournalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvTitle: TextView = view.findViewById(R.id.tv_title)
-        val tvBody: TextView = view.findViewById(R.id.tv_body)
-        val tvDate: TextView = view.findViewById(R.id.tv_modified_on)
+        private val tvTitle: TextView = view.findViewById(R.id.tv_title)
+        private val tvBody: TextView = view.findViewById(R.id.tv_body)
+        private val tvDate: TextView = view.findViewById(R.id.tv_modified_on)
 
+        private val simpleDateFormate = SimpleDateFormat("dd/mm/yy", Locale.getDefault());
         fun bind(journalEntry: JournalEntry) {
             tvTitle.text = journalEntry.title
             tvBody.text = journalEntry.body
-            tvTitle.text = journalEntry.title
+            tvDate.text = simpleDateFormate.format(journalEntry.modifiedAt)
         }
 
     }

@@ -15,7 +15,7 @@ interface JournalDao {
     // delete
     // edit
 
-    @Query("SELECT * FROM journal ORDER BY createdAt ASC")
+    @Query("SELECT * FROM journal ORDER BY modifiedAt DESC")
     fun loadAllTasks(): LiveData<List<JournalEntry>>
 
     @Query("SELECT * FROM journal WHERE id = :id")
