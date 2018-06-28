@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import za.co.dubedivine.journalapp.R
 import za.co.dubedivine.journalapp.database.JournalEntry
+import za.co.dubedivine.journalapp.ui.viewJournal.ViewJournal
+import za.co.dubedivine.journalapp.util.getSimpleDateFormatter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,15 +42,19 @@ class JournalAdapter : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() 
     }
 
     class JournalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+
         private val tvTitle: TextView = view.findViewById(R.id.tv_title)
         private val tvBody: TextView = view.findViewById(R.id.tv_body)
         private val tvDate: TextView = view.findViewById(R.id.tv_modified_on)
 
-        private val simpleDateFormate = SimpleDateFormat("dd/mm/yy", Locale.getDefault());
         fun bind(journalEntry: JournalEntry) {
             tvTitle.text = journalEntry.title
             tvBody.text = journalEntry.body
-            tvDate.text = simpleDateFormate.format(journalEntry.modifiedAt)
+            tvDate.text = getSimpleDateFormatter().format(journalEntry.modifiedAt)
+            itemView.setOnClickListener {
+                itemView.context.startActivity(ViewJournal.getStartIntent(itemView.context, journalEntry.id!!))
+            }
         }
 
     }
