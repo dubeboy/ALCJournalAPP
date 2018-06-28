@@ -9,10 +9,12 @@ import java.util.Date
 data class JournalEntry constructor(@PrimaryKey(autoGenerate = true) var id: Int,
                                     var title: String,
                                     var body: String,
+                                    var modifiedAt: Date,
                                     var createdAt: Date) {
 
     @Ignore
     constructor(title: String,
                 body: String,
-                createdAt: Date) :  this(0, title, body, createdAt)
+                modifiedAt: Date,
+                createdAt: Date) :  this(0, title, body, modifiedAt,  createdAt)
 }
