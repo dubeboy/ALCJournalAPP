@@ -13,11 +13,9 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="283dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="13dp" />
 
     <TextView
         android:id="@+id/tv_body"

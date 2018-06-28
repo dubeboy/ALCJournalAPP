@@ -8,8 +8,13 @@ import za.co.dubedivine.journalapp.database.AppDatabase
 import za.co.dubedivine.journalapp.database.JournalDao
 import za.co.dubedivine.journalapp.database.JournalEntry
 
+
+
 class AddJournalViewModel(private val database: AppDatabase) : ViewModel() {
     private val journalDao: JournalDao = database.journalDao()
+
+    // could keep a ref of the current text being written
+
 
     fun insertJournal(journal: JournalEntry) {
         journalDao.insert(journal)

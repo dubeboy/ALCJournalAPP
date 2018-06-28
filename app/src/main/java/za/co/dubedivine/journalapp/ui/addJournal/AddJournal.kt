@@ -29,7 +29,6 @@ class AddJournal : AppCompatActivity() {
     }
 
     private lateinit var viewModel: AddJournalViewModel
-    private val createdAt: Date = Date()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,12 +52,13 @@ class AddJournal : AppCompatActivity() {
        return true
     }
 
-    // need to save when the activity is paused
+    //todo need to save when the activity is paused
 
     private fun createJournalEntityToSave(): JournalEntry {
         val body = et_journal_body.text.toString()
         val title = et_journal_title.text.toString()
-        return JournalEntry(title, body, Date(), createdAt)
+        val createdAtDate = Date()
+        return JournalEntry(title, body,createdAtDate, createdAtDate)
     }
 
     override fun onBackPressed() {
