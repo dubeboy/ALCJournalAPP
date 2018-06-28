@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.addJournal.AddJournal" />
+        <activity android:name=".ui.viewJournal.ViewJournal"></activity>
     </application>
 
 </manifest>

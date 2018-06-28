@@ -1,18 +1,19 @@
-package za.co.dubedivine.journalapp
+package za.co.dubedivine.journalapp.ui.viewJournal
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import za.co.dubedivine.journalapp.ui.main.MainFragment
+import za.co.dubedivine.journalapp.R
 
-class MainActivity : AppCompatActivity() {
+class ViewJournal : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(R.layout.view_journal_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, ViewJournalFragment.newInstance())
                     .commitNow()
         }
     }
+
 }

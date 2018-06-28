@@ -8,7 +8,7 @@ import za.co.dubedivine.journalapp.database.JournalEntry
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private lateinit var journals: LiveData<List<JournalEntry>>
+    private var journals: LiveData<List<JournalEntry>>
 
     init {
         val database = AppDatabase.getInstance(this.getApplication())

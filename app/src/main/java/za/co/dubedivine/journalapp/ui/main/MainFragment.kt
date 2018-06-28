@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.main_fragment.*
 import za.co.dubedivine.journalapp.R
+import za.co.dubedivine.journalapp.ui.addJournal.AddJournal
 
 class MainFragment : Fragment() {
 
@@ -35,11 +36,16 @@ class MainFragment : Fragment() {
         recycler_view_journals.layoutManager = LinearLayoutManager(activity)
         recycler_view_journals.adapter = journalAdapter
 
+        //setup view model
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.getAllJournals().observe(this, Observer {
             Log.d(TAG, "the main model observer is called")
             journalAdapter.journals = ArrayList(it)
         })
-    }
 
+        // setup fab onClick
+        fab_add_journal.setOnClickListener {
+            startActivity(AddJournal.getStartIntent(activity!!))
+        }
+    }
 }
