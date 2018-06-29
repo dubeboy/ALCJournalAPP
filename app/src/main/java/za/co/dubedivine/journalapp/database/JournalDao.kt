@@ -2,11 +2,12 @@ package za.co.dubedivine.journalapp.database
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
+import android.arch.persistence.room.OnConflictStrategy.REPLACE
 
 
 @Dao
 interface JournalDao {
-    //isert
+    //insert
     // delete
     // edit
 
@@ -16,13 +17,13 @@ interface JournalDao {
     @Query("SELECT * FROM journal WHERE id = :id")
     fun findJournalEntry(id: Int): JournalEntry  // find item by ID
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     fun insertAll(journals: Array<JournalEntry>)
 
-    @Insert
+    @Insert(onConflict = REPLACE)
     fun insert(journal: JournalEntry)
 
-    @Update
+    @Update(onConflict = REPLACE)
     fun update(journal: JournalEntry)
 
 

@@ -7,7 +7,7 @@ import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import java.security.AccessControlContext
 
-@Database(entities = [JournalEntry::class], version = 1)
+@Database(entities = [(JournalEntry::class)], version = 1, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
