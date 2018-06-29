@@ -15,7 +15,7 @@ interface JournalDao {
     fun loadAllTasks(): LiveData<List<JournalEntry>>
 
     @Query("SELECT * FROM journal WHERE id = :id")
-    fun findJournalEntry(id: Int): JournalEntry  // find item by ID
+    fun findJournalEntry(id: Int): LiveData<JournalEntry>  // find item by ID
 
     @Insert(onConflict = REPLACE)
     fun insertAll(journals: Array<JournalEntry>)

@@ -1,6 +1,7 @@
 package za.co.dubedivine.journalapp.ui.viewJournal
 
 import android.app.Application
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import za.co.dubedivine.journalapp.database.AppDatabase
 import za.co.dubedivine.journalapp.database.JournalEntry
@@ -11,7 +12,7 @@ class ViewJournalViewModel(application: Application) : ViewModel() {
 
     private val journalDao = AppDatabase.getInstance(application.applicationContext).journalDao()
 
-    fun getJournalById(id: Int): JournalEntry {
+    fun getJournalById(id: Int): LiveData<JournalEntry> {
         return journalDao.findJournalEntry(id)
     }
 }

@@ -1,5 +1,6 @@
 package za.co.dubedivine.journalapp.ui.addJournal
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
@@ -11,14 +12,15 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.add_journal_activity.*
 import za.co.dubedivine.journalapp.R
+import za.co.dubedivine.journalapp.database.AppDatabase
 import za.co.dubedivine.journalapp.database.JournalEntry
+import za.co.dubedivine.journalapp.executors.AppExecutors
 import za.co.dubedivine.journalapp.ui.viewJournal.ViewJournalFragment
 import java.util.*
 
 class AddJournal : AppCompatActivity() {
 
     companion object {
-
         const val TAG = "AddJournal"
 
         @JvmStatic
@@ -31,17 +33,28 @@ class AddJournal : AppCompatActivity() {
     }
 
     private lateinit var viewModel: AddJournalViewModel
+    private lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_journal_activity)
-        viewModel = ViewModelProviders.of(this).get(AddJournalViewModel::class.java)
+
+        // use the application context do reduce memory leaks
+        database = AppDatabase.getInstance(this.applicationContext)
+        //create the factory to inject the database instance on the ViewModel
+        val factory = AddJournalViewModelFactory(database)
+
+        viewModel = ViewModelProviders.of(this, factory).get(AddJournalViewModel::class.java)  // I feel like this is the same as just using AndroidViewModel
         viewModel.id = intent.getIntExtra(ViewJournalFragment.EXTRA_JOURNAL_ID, -1)
 
         if (viewModel.isInEditMode()) {
-            val (id, title, body, modifiedAt, createdAt) = viewModel.getJournalToEdit()!!
-            et_journal_body.setText(body)
-            et_journal_title.setText(title)
+            viewModel.getJournalToEdit()!!.observe(this, Observer<JournalEntry?> { t ->
+                if (t != null) {
+                    et_journal_body.setText(t.body)
+                    et_journal_title.setText(t.title)
+                } else Log.d(TAG, "oops the Joutrnal entry is null")
+            })
+
         }
     }
 
@@ -54,7 +67,7 @@ class AddJournal : AppCompatActivity() {
         when (item?.itemId) {
             R.id.menu_item_done -> {
                 // save and then finish
-                viewModel.saveJournal(createJournalEntityToSave())
+                saveJournal(createJournalEntityToSave())
                 finish()
             }
         }
@@ -75,7 +88,27 @@ class AddJournal : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        viewModel.saveJournal(createJournalEntityToSave())
+        saveJournal(createJournalEntityToSave())
         super.onBackPressed()
     }
+
+
+    private fun insertJournal(journal: JournalEntry) {
+        AppExecutors.diskIO().execute {
+            database.journalDao().insert(journal)
+        }
+    }
+
+    //todo kind of redundant since we have the onConflict
+    private fun updateJournal(journal: JournalEntry) {
+        AppExecutors.diskIO().execute {
+            database.journalDao().update(journal)
+        }
+    }
+
+    private fun saveJournal(journalEntityToSave: JournalEntry) =
+            if (journalEntityToSave.id != null)
+                updateJournal(journalEntityToSave)
+            else
+                insertJournal(journalEntityToSave)
 }

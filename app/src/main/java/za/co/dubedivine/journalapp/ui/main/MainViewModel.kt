@@ -12,7 +12,7 @@ open class MainViewModel(application: Application) : AndroidViewModel(applicatio
     private var journals: LiveData<List<JournalEntry>>? = null
 
     init {
-        val database = AppDatabase.getInstance(getApplication())
+         val database = AppDatabase.getInstance(this.getApplication())
          journals = database.journalDao().loadAllTasks()
     }
 

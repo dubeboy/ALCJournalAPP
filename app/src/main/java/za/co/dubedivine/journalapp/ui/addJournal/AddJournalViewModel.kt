@@ -9,9 +9,12 @@ import za.co.dubedivine.journalapp.database.JournalDao
 import za.co.dubedivine.journalapp.database.JournalEntry
 
 
-// these classes survi
-class AddJournalViewModel(private val database: AppDatabase) : ViewModel() {
+// these classes survive lifecycles of views
+class AddJournalViewModel(database: AppDatabase) : ViewModel() {
+
     private val journalDao: JournalDao = database.journalDao()
+    private var journal: LiveData<JournalEntry>? = null
+
     private var _id: Int = -1
     var id: Int
         get() = _id
@@ -21,26 +24,13 @@ class AddJournalViewModel(private val database: AppDatabase) : ViewModel() {
 
     fun isInEditMode() = id != -1
 
-    fun getJournalToEdit(): JournalEntry? {
+    fun getJournalToEdit(): LiveData<JournalEntry>? {
         if (isInEditMode()) {
-            return journalDao.findJournalEntry(id)
+            if (journal == null) {
+                journal = journalDao.findJournalEntry(id)
+            }
+            return journal
         }
         return null
     }
-
-    // could keep a ref of the current text being written
-
-    fun insertJournal(journal: JournalEntry) {
-        journalDao.insert(journal)
-    }
-
-    fun updateJournal(journal: JournalEntry) {
-        journalDao.insert(journal)
-    }
-
-    fun saveJournal(journalEntityToSave: JournalEntry) =
-            if (journalEntityToSave.id != null)
-                updateJournal(journalEntityToSave)
-            else
-                insertJournal(journalEntityToSave)
 }
