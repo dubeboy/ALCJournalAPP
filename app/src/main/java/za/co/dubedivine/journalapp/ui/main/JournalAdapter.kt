@@ -25,7 +25,7 @@ class JournalAdapter : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() 
         }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): JournalViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JournalViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.journal_layout, parent, false)
         return JournalViewHolder(view)
     }
@@ -33,7 +33,7 @@ class JournalAdapter : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() 
     override fun getItemCount(): Int = journals.size
 
     // default 16 items
-    override fun onBindViewHolder(holder: JournalViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: JournalViewHolder, position: Int) {
         holder?.bind(journals[position])
     }
 
