@@ -17,10 +17,10 @@ interface JournalDao {
     @Query("SELECT * FROM journal WHERE id = :id")
     fun findJournalEntry(id: Int): LiveData<JournalEntry>  // find item by ID
 
-    @Insert(onConflict = REPLACE)
+    @Insert
     fun insertAll(journals: Array<JournalEntry>)
 
-    @Insert(onConflict = REPLACE)
+    @Insert
     fun insert(journal: JournalEntry)
 
     @Update(onConflict = REPLACE)

@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import kotlinx.android.synthetic.main.add_journal_activity.*
 import za.co.dubedivine.journalapp.R
 import za.co.dubedivine.journalapp.database.AppDatabase
@@ -54,7 +55,6 @@ class AddJournal : AppCompatActivity() {
                     et_journal_title.setText(t.title)
                 } else Log.d(TAG, "oops the Joutrnal entry is null")
             })
-
         }
     }
 
@@ -88,13 +88,19 @@ class AddJournal : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        saveJournal(createJournalEntityToSave())
+        val createJournalEntityToSave = createJournalEntityToSave()
+        if (!createJournalEntityToSave.isEmpty()) {
+            saveJournal(createJournalEntityToSave)
+        } else {
+            Toast.makeText(this, "cannot autosave a blank journal", Toast.LENGTH_LONG).show()
+        }
         super.onBackPressed()
     }
 
 
     private fun insertJournal(journal: JournalEntry) {
         AppExecutors.diskIO().execute {
+            Log.d(TAG, "executing task insert ")
             database.journalDao().insert(journal)
         }
     }
@@ -102,13 +108,21 @@ class AddJournal : AppCompatActivity() {
     //todo kind of redundant since we have the onConflict
     private fun updateJournal(journal: JournalEntry) {
         AppExecutors.diskIO().execute {
+            Log.d(TAG, "executing task updating ")
             database.journalDao().update(journal)
         }
     }
 
-    private fun saveJournal(journalEntityToSave: JournalEntry) =
-            if (journalEntityToSave.id != null)
+    private fun saveJournal(journalEntityToSave: JournalEntry) {
+        Log.d(TAG, "save journal called ")
+        if (!journalEntityToSave.isEmpty()) {
+            if (viewModel.isInEditMode()) {
                 updateJournal(journalEntityToSave)
-            else
+            } else {
                 insertJournal(journalEntityToSave)
+            }
+        } else {
+            Toast.makeText(this, "cannot save a blank journal", Toast.LENGTH_LONG).show()
+        }
+    }
 }
