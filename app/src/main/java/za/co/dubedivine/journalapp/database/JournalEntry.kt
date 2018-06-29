@@ -3,6 +3,7 @@ package za.co.dubedivine.journalapp.database
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
+import android.support.annotation.IntRange
 import android.util.Log
 import java.util.Date
 
@@ -10,19 +11,21 @@ import java.util.Date
 data class JournalEntry constructor(@PrimaryKey(autoGenerate = true) var id: Int?,
                                     var title: String,
                                     var body: String,
+                                    @IntRange(from = 1, to = 3)  var mood: Int, // 1 neutral 2 happy 3 sad
                                     var modifiedAt: Date,
                                     var createdAt: Date) {
 
     @Ignore
     constructor(title: String,
                 body: String,
+                mood: Int,
                 modifiedAt: Date,
-                createdAt: Date) :  this(null, title, body, modifiedAt,  createdAt)
+                createdAt: Date) :  this(null, title, body, mood,  modifiedAt,  createdAt)
 
 
     override fun toString(): String {
-        return super.toString()
         Log.d("JournalEntry", "the id is $id")
+        return super.toString()
     }
 
     fun isEmpty(): Boolean {

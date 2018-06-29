@@ -5,5 +5,5 @@ import java.util.*
 
 
 fun getSimpleDateFormatter(): SimpleDateFormat {
-    return SimpleDateFormat("dd/mm/yyyy", Locale.getDefault())
+    return SimpleDateFormat("dd/mm/yyyy", Locale.getDefault()) //todo fix this
 }

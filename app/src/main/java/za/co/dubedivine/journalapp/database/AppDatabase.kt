@@ -7,7 +7,7 @@ import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import java.security.AccessControlContext
 
-@Database(entities = [(JournalEntry::class)], version = 1, exportSchema = false)
+@Database(entities = [(JournalEntry::class)], version = 2, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -23,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance(context: Context): AppDatabase {
             if (instance == null)
                 synchronized(LOCK) {
-                    instance = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, DATABASE_NAME).build()
+                    instance = Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, DATABASE_NAME).fallbackToDestructiveMigration().build()
                 }
             return instance!!
         }

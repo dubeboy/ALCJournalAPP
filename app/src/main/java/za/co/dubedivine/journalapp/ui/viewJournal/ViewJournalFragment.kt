@@ -54,7 +54,7 @@ class ViewJournalFragment : Fragment() {
             if (it != null) {
                 tv_journal_title.text = it.title
                 tv_journal_body.text = it.body
-                tv_modified_at.text = getSimpleDateFormatter().format(it.modifiedAt)
+                tv_modified_at.text = getSimpleDateFormatter().format(it.modifiedAt)  //todo should use a string template
                 tv_created_at.text = getSimpleDateFormatter().format(it.createdAt)
             }
         })

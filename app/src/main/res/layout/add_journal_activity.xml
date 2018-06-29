@@ -9,10 +9,12 @@
     <EditText
         android:id="@+id/et_journal_body"
         android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:padding="@dimen/default_margin"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/default_margin"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/default_margin"
         android:ems="10"
         android:hint="@string/journal_body"
         android:inputType="textMultiLine"
@@ -25,14 +27,75 @@
         android:id="@+id/et_journal_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginStart="@dimen/default_margin"
+        android:background="@android:color/white"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/hint_journal_title"
+        android:inputType="textPersonName"
+        android:padding="@dimen/default_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mood">
+
+        <RadioButton
+            android:id="@+id/radio_neutral"
+            android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/neutral_feeling_color"
+            android:padding="@dimen/default_margin"
+            android:text="@string/radio_btn_good" />
+
+        <RadioButton
+            android:id="@+id/radio_happy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/happy_feeling_color"
+            android:padding="@dimen/default_margin"
+            android:text="@string/radio_btn_happy" />
+
+        <RadioButton
+            android:id="@+id/radio_sad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/sad_feeling_color"
+            android:padding="@dimen/default_margin"
+            android:text="@string/radio_btn_sad" />
+
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tv_mood"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="@dimen/default_margin"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white"
+        android:contentDescription="@string/mood_desc"
+        android:padding="@dimen/default_margin"
+        android:text="@string/mood_of_the_day"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

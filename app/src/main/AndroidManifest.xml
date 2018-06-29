@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.addJournal.AddJournal" />
-        <activity android:name=".ui.viewJournal.ViewJournal"></activity>
+        <activity android:name=".ui.viewJournal.ViewJournal" />
     </application>
 
 </manifest>

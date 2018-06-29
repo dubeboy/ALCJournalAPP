@@ -40,6 +40,8 @@ class AddJournal : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_journal_activity)
 
+        et_journal_title.requestFocus()
+
         // use the application context do reduce memory leaks
         database = AppDatabase.getInstance(this.applicationContext)
         //create the factory to inject the database instance on the ViewModel
@@ -79,11 +81,27 @@ class AddJournal : AppCompatActivity() {
     private fun createJournalEntityToSave(): JournalEntry {
         val body = et_journal_body.text.toString()
         val title = et_journal_title.text.toString()
+        val mood = getMood() // default mood neutral
+
         val createdAtDate = Date()
         return if (viewModel.isInEditMode()) {
-            JournalEntry(viewModel.id, title, body, createdAtDate, createdAtDate)
+            JournalEntry(viewModel.id, title, body, mood, createdAtDate, createdAtDate)
         } else {
-            JournalEntry(title, body, createdAtDate, createdAtDate)
+            JournalEntry(title, body, mood, createdAtDate, createdAtDate)
+        }
+    }
+
+    private fun getMood(): Int {
+        return when {
+            radio_happy.isChecked -> {
+               2
+            }
+            radio_sad.isChecked -> {
+                3
+            }
+            else -> { //neutral
+                1
+            }
         }
     }
 
