@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.journal_layout.*
 import kotlinx.android.synthetic.main.view_journal_fragment.*
 import za.co.dubedivine.journalapp.R
+import za.co.dubedivine.journalapp.database.AppDatabase
+import za.co.dubedivine.journalapp.ui.addJournal.AddJournal
+import za.co.dubedivine.journalapp.ui.addJournal.AddJournalViewModelFactory
 import za.co.dubedivine.journalapp.util.getSimpleDateFormatter
 
 class ViewJournalFragment : Fragment() {
@@ -28,6 +30,7 @@ class ViewJournalFragment : Fragment() {
     }
 
     private lateinit var viewModel: ViewJournalViewModel
+    private lateinit var database: AppDatabase
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -41,18 +44,24 @@ class ViewJournalFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        database = AppDatabase.getInstance(activity!!.applicationContext)
+        //create the factory to inject the database instance on the ViewModel
+        val factory = AddJournalViewModelFactory(database)
         // todo should observe this data!!
-        viewModel = ViewModelProviders.of(this).get(ViewJournalViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, factory).get(ViewJournalViewModel::class.java)
         val journalId = arguments?.getInt(EXTRA_JOURNAL_ID)
         viewModel.getJournalById(journalId!!).observe(this, Observer {
             if (it != null) {
                 tv_journal_title.text = it.title
                 tv_journal_body.text = it.body
-                tv_modified_on.text = getSimpleDateFormatter().format(it.modifiedAt)
+                tv_modified_at.text = getSimpleDateFormatter().format(it.modifiedAt)
                 tv_created_at.text = getSimpleDateFormatter().format(it.createdAt)
             }
         })
 
-    }
 
+        fab_edit_journal.setOnClickListener {
+            activity!!.startActivity(AddJournal.getStartIntent(it.context, journalId))
+        }
+    }
 }

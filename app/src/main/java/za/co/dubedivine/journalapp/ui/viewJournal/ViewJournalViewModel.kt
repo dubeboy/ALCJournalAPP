@@ -7,10 +7,10 @@ import za.co.dubedivine.journalapp.database.AppDatabase
 import za.co.dubedivine.journalapp.database.JournalEntry
 
 // todo look in to the factory
-class ViewJournalViewModel(application: Application) : ViewModel() {
+class ViewJournalViewModel(database: AppDatabase) : ViewModel() {
     // todo should cache all the data here bro
 
-    private val journalDao = AppDatabase.getInstance(application.applicationContext).journalDao()
+    private val journalDao = database.journalDao()
 
     fun getJournalById(id: Int): LiveData<JournalEntry> {
         return journalDao.findJournalEntry(id)
