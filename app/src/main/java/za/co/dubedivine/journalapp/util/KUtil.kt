@@ -24,7 +24,7 @@ fun getSimpleDateFormatter(): SimpleDateFormat {
 }
 
 private var isInitialized: Boolean = false
-private const val REMINDER_INTERVAL_MINUTES = 2L
+private const val REMINDER_INTERVAL_MINUTES = 1440L
 private val REMINDER_INTERVAL_SECONDS = TimeUnit.MINUTES.toSeconds(REMINDER_INTERVAL_MINUTES).toInt()
 private val SYNC_FLEX_TIME = REMINDER_INTERVAL_SECONDS
 
