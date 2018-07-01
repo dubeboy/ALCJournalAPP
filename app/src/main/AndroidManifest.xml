@@ -22,6 +22,11 @@
             android:name=".ui.settings.SettingsActivity2"
             android:label="@string/title_activity_settings" />
         <activity android:name=".ui.settings.SettingsActivity"></activity>
+        <service android:name=".firebaseSyncService.FirebaseSyncService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
     </application>
-
 </manifest>
