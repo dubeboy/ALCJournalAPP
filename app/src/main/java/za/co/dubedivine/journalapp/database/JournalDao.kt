@@ -14,6 +14,10 @@ interface JournalDao {
     @Query("SELECT * FROM journal ORDER BY modifiedAt DESC")
     fun loadAllTasks(): LiveData<List<JournalEntry>>
 
+    // should be called from a no lifecycle observer eg service
+    @Query("SELECT * FROM journal ORDER BY modifiedAt DESC")
+    fun loadTasksFromService(): List<JournalEntry>
+
     @Query("SELECT * FROM journal WHERE id = :id")
     fun findJournalEntry(id: Int): LiveData<JournalEntry>  // find item by ID
 

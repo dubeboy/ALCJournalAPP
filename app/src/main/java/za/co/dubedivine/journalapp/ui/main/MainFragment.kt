@@ -53,7 +53,6 @@ class MainFragment : Fragment() {
 
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
 
-
         pref.registerOnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences?, key: String? ->
             if (key == getString(R.string.key_sign_in)) {
                 val signedIn: Boolean  = sharedPreferences?.getBoolean(key, false)!!
