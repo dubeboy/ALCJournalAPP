@@ -36,7 +36,7 @@ Install Android Studio after to to Tools>AVD Manager>Create AVD> select avd with
 
 * **Divine Dube** - *Initial work* - [dubeboy](https://github.com/dubeboy)
 
-The [app](https://github.com/dubeboy/release/app-release.apk) can be found here
+The [app](https://github.com/dubeboy/app-release.apk) can be found here
 
 ## License
 
