@@ -1,4 +1,4 @@
-# Project Title
+# Journal App
 This app is a Journal that allows one to record their day including each message journal has title, body and a mood(which is how they where feeling while they where journaling ;) ) 
 
 ## Getting Started
