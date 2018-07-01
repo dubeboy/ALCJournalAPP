@@ -35,21 +35,20 @@ class FirebaseSyncService : com.firebase.jobdispatcher.JobService() {
 
             val pref =  PreferenceManager.getDefaultSharedPreferences(this)
             val email = pref.getString(PREF_EMAIL, "")
-
+            val map = HashMap<String, Any>()
             journals?.observeForever {
                 val db = FirebaseFirestore.getInstance()
                 val collection = db.collection("Journals")
-                if (email.isNotEmpty()) {
-                    val map = HashMap<String, List<JournalEntry>?>()
-                    map.put(email, it)
-                    collection.add(map as Map<String, Any>).addOnSuccessListener {
-
-                    }.addOnFailureListener({
-
-                    })
-
-
+                it?.forEach {
+                    map.put("title", it.title)
+                    map.put("body", it.body)
+                    map.put("email", email)
+                    map.put("created_at", it.createdAt)
+                    map.put("modified_at", it.modifiedAt)
+                    map.put("mood", it.mood)
                 }
+
+                collection.add(map)
             }
         }
         return true
