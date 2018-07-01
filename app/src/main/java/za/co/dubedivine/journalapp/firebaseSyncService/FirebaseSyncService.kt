@@ -1,6 +1,7 @@
 package za.co.dubedivine.journalapp.firebaseSyncService
 
 import android.arch.lifecycle.LiveData
+import android.util.Log
 import za.co.dubedivine.journalapp.executors.AppExecutors
 import com.google.firebase.firestore.FirebaseFirestore
 import za.co.dubedivine.journalapp.database.AppDatabase
@@ -15,14 +16,16 @@ class FirebaseSyncService : com.firebase.jobdispatcher.JobService() {
     override fun onStopJob(job: com.firebase.jobdispatcher.JobParameters?): Boolean {
         journals = null
         exec = null
-        jobFinished(job!!, false)
+        Log.d("FirebaseSyncService", "stopping job")
+
+//        jobFinished(job!!, false)
         return true
     }
 
     override fun onStartJob(job: com.firebase.jobdispatcher.JobParameters?): Boolean {
         if(exec == null) exec = AppExecutors.networkIO()
+        Log.d("FirebaseSyncService", "starting job")
         exec?.execute {
-
             val database = AppDatabase.getInstance(this.application)
             journals = database.journalDao().loadAllTasks()
 

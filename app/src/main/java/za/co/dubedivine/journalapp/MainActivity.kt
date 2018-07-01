@@ -7,6 +7,10 @@ import android.view.MenuItem
 import za.co.dubedivine.journalapp.ui.main.MainFragment
 import za.co.dubedivine.journalapp.ui.settings.SettingsActivity
 import za.co.dubedivine.journalapp.util.scheduleSyncJob
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.firestore.FirebaseFirestore
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,7 +26,12 @@ class MainActivity : AppCompatActivity() {
                     .commitNow()
         }
 
-
+        //fix firestore
+        val firestore = FirebaseFirestore.getInstance()
+        val settings = FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build()
+        firestore.firestoreSettings = settings
 
     }
 
