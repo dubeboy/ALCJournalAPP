@@ -2,6 +2,7 @@ package za.co.dubedivine.journalapp.ui.main
 
 import android.content.res.Resources
 import android.provider.Settings.System.DATE_FORMAT
+import android.support.v4.content.ContextCompat
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -55,7 +56,7 @@ class JournalAdapter : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() 
             tvTitle.text = journalEntry.title
             tvBody.text = journalEntry.body
             tvDate.text = getSimpleDateFormatter().format(journalEntry.modifiedAt)
-           // tvBar.setBackgroundColor(genBarColor(journalEntry))
+            tvBar.setBackgroundColor(genBarColor(journalEntry.mood))
             itemView.setOnClickListener {
                 itemView.context.startActivity(ViewJournal.getStartIntent(itemView.context, journalEntry.id!!))
             }
@@ -64,15 +65,15 @@ class JournalAdapter : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() 
         private fun genBarColor(mood: Int): Int {
            return when (mood) {
                 2 -> {
-                    Resources.getSystem().getColor(R.color.happy_feeling_color)
-
+//                    Resources.getSystem().getColor(R.color.happy_feeling_color)
+                    ContextCompat.getColor(itemView.context, R.color.happy_feeling_color)
                 }
                 3 -> {
-                    Resources.getSystem().getColor(R.color.sad_feeling_color)
+                    ContextCompat.getColor(itemView.context, R.color.sad_feeling_color)
                 }
                else -> {
                    //todo fix
-                   Resources.getSystem().getColor(R.color.neutral_feeling_color)
+                   ContextCompat.getColor(itemView.context, R.color.neutral_feeling_color)
                }
             }
         }

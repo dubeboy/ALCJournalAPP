@@ -19,8 +19,9 @@
         <activity android:name=".ui.addJournal.AddJournal" />
         <activity android:name=".ui.viewJournal.ViewJournal" />
         <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:name=".ui.settings.SettingsActivity2"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".ui.settings.SettingsActivity"></activity>
     </application>
 
 </manifest>

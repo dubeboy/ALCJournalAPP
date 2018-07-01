@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:entries="@array/pref_sync_frequency_titles"
+        android:entryValues="@array/pref_sync_frequency_values"
+        android:summary="Sign in using google authentication"
+        android:summaryOn="Signed In"
+        android:key="@string/key_sign_in"
+        android:title="@string/pref_sign_in_using_google" />
+
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <ListPreference
+        android:defaultValue="1"
+
+        android:entries="@array/pref_sync_journal"
+        android:entryValues="@array/pref_sync_journal_values"
+        android:key="sync_journal"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:summary="Choose how often your journal get synced online"
+        android:title="@string/pref_title_sync_journal" />
+</PreferenceScreen>

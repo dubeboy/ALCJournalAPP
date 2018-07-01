@@ -2,13 +2,16 @@ package za.co.dubedivine.journalapp.ui.main
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.preference.PreferenceManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import kotlinx.android.synthetic.main.main_fragment.*
 import za.co.dubedivine.journalapp.R
 import za.co.dubedivine.journalapp.ui.addJournal.AddJournal
@@ -46,6 +49,16 @@ class MainFragment : Fragment() {
         // setup fab onClick
         fab_add_journal.setOnClickListener {
             startActivity(AddJournal.getStartIntent(activity!!))
+        }
+
+        val pref = PreferenceManager.getDefaultSharedPreferences(context)
+
+
+        pref.registerOnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences?, key: String? ->
+            if (key == getString(R.string.key_sign_in)) {
+                val signedIn: Boolean  = sharedPreferences?.getBoolean(key, false)!!
+                Toast.makeText(context, if(signedIn) "successfully signed in" else "failed to sign in", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

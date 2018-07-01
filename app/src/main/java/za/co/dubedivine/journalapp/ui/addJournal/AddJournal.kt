@@ -58,10 +58,11 @@ class AddJournal : AppCompatActivity() {
                 } else Log.d(TAG, "oops the Joutrnal entry is null")
             })
         }
+        // todo add display home as up buttom
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        MenuInflater(this).inflate(R.menu.menu_add_journal, menu)
+        menuInflater.inflate(R.menu.menu_add_journal, menu)
         return true
     }
 
@@ -73,7 +74,7 @@ class AddJournal : AppCompatActivity() {
                 finish()
             }
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     //todo need to save when the activity is paused

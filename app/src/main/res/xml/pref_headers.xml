@@ -3,17 +3,17 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
-        android:fragment="za.co.dubedivine.journalapp.ui.settings.SettingsActivity$GeneralPreferenceFragment"
+        android:fragment="za.co.dubedivine.journalapp.ui.settings.SettingsActivity2$GeneralPreferenceFragment"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_general" />
 
     <header
-        android:fragment="za.co.dubedivine.journalapp.ui.settings.SettingsActivity$NotificationPreferenceFragment"
+        android:fragment="za.co.dubedivine.journalapp.ui.settings.SettingsActivity2$NotificationPreferenceFragment"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/pref_header_notifications" />
 
     <header
-        android:fragment="za.co.dubedivine.journalapp.ui.settings.SettingsActivity$DataSyncPreferenceFragment"
+        android:fragment="za.co.dubedivine.journalapp.ui.settings.SettingsActivity2$DataSyncPreferenceFragment"
         android:icon="@drawable/ic_sync_black_24dp"
         android:title="@string/pref_header_data_sync" />
 

@@ -44,4 +44,9 @@ dependencies {
     // room dependencies
     implementation "android.arch.persistence.room:runtime:1.1.1"
     kapt "android.arch.persistence.room:compiler:1.1.1"
+
+    //settings activity
+    implementation 'com.android.support:preference-v7:27.1.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.2'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
 }
