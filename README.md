@@ -1,9 +1,9 @@
 # Journal App
-This app is a Journal that allows one to record their day including each message journal has title, body and a mood(which is how they where feeling while they where journaling ;) ) 
+This is a Journal app that allows one to record their day. Each each message journal has a title, body and a mood(which is how they are feeling while they where journaling it ;) ) 
 
 ## Getting Started
 
-To run the code you need to Android studio (above 3.1) and internet conection ;). 
+To run the code you need to Android studio (above 3.1) and good internet conection ;). 
 
 ### Prerequisites
 
